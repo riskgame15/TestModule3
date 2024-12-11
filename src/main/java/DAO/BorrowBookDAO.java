@@ -23,7 +23,6 @@ public class BorrowBookDAO {
         return connection;
     }
 
-    // Thêm thông tin mượn sách
     public void addBorrowBook(BorrowBook borrowBook) {
         try (Connection connection = getConnection()) {
             String query = "INSERT INTO BorrowBook (bookId, studentId, status, borrowStart, borrowReturn) VALUES (?, ?, ?, ?, ?)";
@@ -39,8 +38,6 @@ public class BorrowBookDAO {
             e.printStackTrace();
         }
     }
-
-    // Lấy sách đang mượn
     public List<BorrowBook> getBorrowedBooks() {
         List<BorrowBook> borrowBooks = new ArrayList<>();
         try (Connection connection = getConnection()) {

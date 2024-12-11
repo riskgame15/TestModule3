@@ -23,7 +23,6 @@ public class StudentDAO {
         return connection;
     }
 
-        // Lấy tất cả học sinh
         public List<Student> getAllStudents() {
             List<Student> students = new ArrayList<>();
             try (Connection connection = getConnection()) {

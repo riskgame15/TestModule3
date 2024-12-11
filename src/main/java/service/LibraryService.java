@@ -14,22 +14,17 @@ public class LibraryService {
     private StudentDAO studentDAO = new StudentDAO();
     private BorrowBookDAO borrowBookDAO = new BorrowBookDAO();
 
-    // Lấy danh sách sách
     public List<Book> getAllBooks() {
         return bookDAO.getAllBooks();
     }
-
-    // Lấy danh sách học sinh
     public List<Student> getAllStudents() {
         return studentDAO.getAllStudents();
     }
 
-    // Mượn sách
     public String borrowBook(int bookId, int studentId, String borrowReturnDate) {
-        // Kiểm tra sách còn hay không
         Book book = bookDAO.getAllBooks().stream().filter(b -> b.getBookId() == bookId).findFirst().orElse(null);
         if (book == null || book.getQuantity() <= 0) {
-            return "Sách không còn";
+            return "Sách không tồn tai";
         }
         // Tạo thẻ mượn
         BorrowBook borrowBook = new BorrowBook(0, bookId, studentId, true, new java.util.Date().toString(), borrowReturnDate);
@@ -39,8 +34,19 @@ public class LibraryService {
         return "Mượn sách thành công";
     }
 
-    // Lấy sách đã được mượn
     public List<BorrowBook> getBorrowedBooks() {
         return borrowBookDAO.getBorrowedBooks();
+    }
+    public Book getBookById(int bookId) {
+        return bookDAO.getAllBooks().stream()
+                .filter(book -> book.getBookId() == bookId)
+                .findFirst()
+                .orElse(null);
+    }
+    public Student getStudentById(int studentId) {
+        return studentDAO.getAllStudents().stream()
+                .filter(student -> student.getStudentId() == studentId)
+                .findFirst()
+                .orElse(null);
     }
 }
